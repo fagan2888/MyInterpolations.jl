@@ -8,7 +8,8 @@ end
 
 Base.length(vals::ValsVector) = length(vals.data)
 
-function Base.call{TV<:Real,TW<:Real}(vals::ValsVector{TV}, i::Integer, w::TW)
+@inline function Base.call{TV<:Real,TW<:Real}(vals::ValsVector{TV},
+                                              i::Integer, w::TW)
     T = promote_type(TV, TW)
     n = length(vals)
     1 <= i <= n || throw(DomainError())
@@ -19,7 +20,7 @@ end
 
 # search_index_weight method
 
-function search_index_weight(a::AbstractVector, x::Real)
+@inline function search_index_weight(a::AbstractVector, x::Real)
     T = Float64
     n = length(a)
     i = searchsortedlast(a, x)
