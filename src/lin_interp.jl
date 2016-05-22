@@ -57,7 +57,7 @@ end
 MyLinInterp{T1<:Real,T2<:Real}(grid::AbstractVector{T1}, vals::Vector{T2}) =
     MyLinInterp(grid, ValsVector(vals))
 
-function Base.call(f::MyLinInterp, x::Real)
+@inline function Base.call(f::MyLinInterp, x::Real)
     t = search_index_weight(f.grid, x)
     return f.vals(t[1], t[2])
 end
