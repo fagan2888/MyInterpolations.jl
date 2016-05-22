@@ -31,6 +31,21 @@ end
     return i, w
 end
 
+@inline function _search_index_weight(start, step, stop, x::Real)
+    T = Float64
+    x <= start && return 1, zero(T)
+    x >= stop && (x = convert(typeof(x), stop))
+
+    w::T = (x - start) / step
+    i = floor(Int, w)
+    w -= i
+    i += 1
+    return i, w
+end
+
+search_index_weight(a::Range, x::Real) =
+    _search_index_weight(first(a), step(a), last(a), x)
+
 
 # MyLinInterp type
 
