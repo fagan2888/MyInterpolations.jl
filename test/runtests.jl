@@ -6,3 +6,5 @@ else
     using BaseTestNext
     const Test = BaseTestNext
 end
+
+include("test_lin_interp.jl")
