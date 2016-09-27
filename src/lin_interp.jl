@@ -8,8 +8,8 @@ end
 
 Base.length(vals::ValsVector) = length(vals.data)
 
-@inline function Base.call{TV<:Real,TW<:Real}(vals::ValsVector{TV},
-                                              i::Integer, w::TW)
+@compat @inline function (vals::ValsVector{TV}){TV<:Real,TW<:Real}(i::Integer,
+                                                                   w::TW)
     T = promote_type(TV, TW)
     n = length(vals)
     1 <= i <= n || throw(DomainError())
@@ -57,12 +57,12 @@ end
 MyLinInterp{T1<:Real,T2<:Real}(grid::AbstractVector{T1}, vals::Vector{T2}) =
     MyLinInterp(grid, ValsVector(vals))
 
-@inline function Base.call(f::MyLinInterp, x::Real)
+@compat @inline function (f::MyLinInterp)(x::Real)
     t = search_index_weight(f.grid, x)
     return f.vals(t[1], t[2])
 end
 
-function Base.call{T<:Real}(f::MyLinInterp, x::AbstractVector{T})
+@compat function (f::MyLinInterp){T<:Real}(x::AbstractVector{T})
     n = length(x)
     out = Array(Float64, n)
     for i in 1:n
