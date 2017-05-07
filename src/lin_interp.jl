@@ -8,8 +8,7 @@ end
 
 Base.length(vals::ValsVector) = length(vals.data)
 
-@inline function (vals::ValsVector{TV}){TV<:Real,TW<:Real}(i::Integer,
-                                                                   w::TW)
+@inline function (vals::ValsVector{TV}){TV<:Real,TW<:Real}(i::Integer, w::TW)
     T = promote_type(TV, TW)
     n = length(vals)
     1 <= i <= n || throw(DomainError())
