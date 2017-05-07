@@ -17,23 +17,23 @@ using MyInterpolations: ValsVector
 
         # Vector
         x, y = [0.5, 1.2], [2, 2.9]
-        @test isapprox(@inferred(itp(x)), y)
+        @test isapprox(@inferred(itp.(x)), y)
 
         # UnitRange
         x, y = grid, vals
-        @test isapprox(@inferred(itp(x)), y)
+        @test isapprox(@inferred(itp.(x)), y)
 
         # StepRange
         x, y = 0:2:2, vals[[1, 3]]
-        @test isapprox(@inferred(itp(x)), y)
+        @test isapprox(@inferred(itp.(x)), y)
 
         # FloatRange
         x, y = 0:0.5:1.5, [1, 2, 3, 2.75]
-        @test isapprox(@inferred(itp(x)), y)
+        @test isapprox(@inferred(itp.(x)), y)
 
         # LinSpace
         x, y = linspace(0, 1.5, 4), [1, 2, 3, 2.75]
-        @test isapprox(@inferred(itp(x)), y)
+        @test isapprox(@inferred(itp.(x)), y)
     end
 
     @testset "MyLinInterp extrapolation" begin
