@@ -2,7 +2,7 @@
 
 # ValsVector type
 
-type ValsVector{T<:Real}
+struct ValsVector{T<:Real}
     data::Vector{T}
 end
 
@@ -48,7 +48,7 @@ search_index_weight(a::Range, x::Real) =
 
 # MyLinInterp type
 
-immutable MyLinInterp{TG<:AbstractVector,TV<:Real}
+struct MyLinInterp{TG<:AbstractVector,TV<:Real}
     grid::TG
     vals::ValsVector{TV}
 end
