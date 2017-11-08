@@ -8,7 +8,7 @@ end
 
 Base.length(vals::ValsVector) = length(vals.data)
 
-@inline function (vals::ValsVector{TV}){TV<:Real,TW<:Real}(i::Integer, w::TW)
+@inline function (vals::ValsVector{TV})(i::Integer, w::TW) where {TV<:Real,TW<:Real}
     T = promote_type(TV, TW)
     n = length(vals)
     1 <= i <= n || throw(DomainError())
@@ -53,7 +53,7 @@ struct MyLinInterp{TG<:AbstractVector,TV<:Real}
     vals::ValsVector{TV}
 end
 
-MyLinInterp{T1<:Real,T2<:Real}(grid::AbstractVector{T1}, vals::Vector{T2}) =
+MyLinInterp(grid::AbstractVector{T1}, vals::Vector{T2}) where {T1<:Real,T2<:Real} =
     MyLinInterp(grid, ValsVector(vals))
 
 @inline function (f::MyLinInterp)(x::Real)
